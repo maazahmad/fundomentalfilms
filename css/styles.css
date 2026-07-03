@@ -1,0 +1,975 @@
+/* ============================================================
+   FUNDOMENTALFILMS — Design System & Styles
+   ============================================================
+   Minimal, black/white, editorial portfolio design
+   Inspired by lauraseward.com
+   ============================================================ */
+
+/* ---- Google Fonts Import ---- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* ============================================================
+   1. DESIGN TOKENS (CSS Custom Properties)
+   ============================================================ */
+:root {
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-bg-alt: #fafafa;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-text-muted: #999999;
+  --color-border: #e5e5e5;
+  --color-border-light: #f0f0f0;
+  --color-overlay: rgba(0, 0, 0, 0.4);
+  --color-overlay-strong: rgba(0, 0, 0, 0.6);
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: var(--font-body);
+
+  --fs-hero: clamp(2.5rem, 6vw, 5rem);
+  --fs-hero-subtitle: clamp(0.875rem, 1.5vw, 1.125rem);
+  --fs-h1: clamp(1.75rem, 3vw, 2.5rem);
+  --fs-h2: clamp(1.25rem, 2vw, 1.75rem);
+  --fs-h3: clamp(1rem, 1.5vw, 1.25rem);
+  --fs-body: clamp(0.875rem, 1vw, 1rem);
+  --fs-small: clamp(0.75rem, 0.9vw, 0.875rem);
+  --fs-nav: 0.8125rem;
+  --fs-logo: 1rem;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 72px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-page: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Shadows */
+  --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================
+   2. GLOBAL RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+a:hover {
+  opacity: 0.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ============================================================
+   3. HEADER / NAVIGATION
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--header-height);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border-light);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.site-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.site-logo a {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.site-logo a:hover {
+  opacity: 1;
+}
+
+.logo-name {
+  font-family: var(--font-body);
+  font-size: var(--fs-logo);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.logo-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+}
+
+/* Desktop Navigation */
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: var(--fs-nav);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  position: relative;
+  padding: var(--space-xs) 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-text);
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover {
+  opacity: 1;
+  color: var(--color-text);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--color-text);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-sm);
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--color-text);
+  transition: transform var(--transition-base), opacity var(--transition-fast);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -5px);
+}
+
+/* Mobile Navigation Overlay */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.nav-mobile.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.nav-mobile .nav-link {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   4. MAIN CONTENT AREA
+   ============================================================ */
+.main-content {
+  flex: 1;
+  margin-top: var(--header-height);
+}
+
+/* Page transition wrapper */
+.page {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity var(--transition-page), transform var(--transition-page);
+}
+
+.page.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   5. HOME PAGE — Bento grid of project thumbnails
+   ============================================================ */
+
+.home-grid {
+  padding: var(--space-lg) var(--space-xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 200px;
+  gap: var(--space-sm);
+}
+
+/* Default card style */
+.home-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 2px;
+  display: block;
+}
+
+.home-card:hover {
+  opacity: 1;
+}
+
+.home-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.home-card:hover img {
+  transform: scale(1.03);
+}
+
+/* Title overlay on card */
+.home-card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-lg) var(--space-lg);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.home-card:hover .home-card-title {
+  opacity: 1;
+}
+
+.home-card-title span {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Bento grid pattern ---- */
+
+/* Item 1: Large featured — spans 8 cols, 2 rows */
+.home-card:nth-child(1) {
+  grid-column: span 8;
+  grid-row: span 2;
+}
+
+/* Items 2 & 3: Stacked on the right — 4 cols each */
+.home-card:nth-child(2),
+.home-card:nth-child(3) {
+  grid-column: span 4;
+}
+
+/* Item 4: Small left — 4 cols */
+.home-card:nth-child(4) {
+  grid-column: span 4;
+}
+
+/* Item 5: Large right — 8 cols */
+.home-card:nth-child(5) {
+  grid-column: span 8;
+}
+
+/* Items 6+: Alternating pattern */
+.home-card:nth-child(6) {
+  grid-column: span 8;
+  grid-row: span 2;
+}
+
+.home-card:nth-child(7),
+.home-card:nth-child(8) {
+  grid-column: span 4;
+}
+
+/* For any extra items beyond 8, use a clean 6/6 split */
+.home-card:nth-child(n+9) {
+  grid-column: span 6;
+}
+
+/* Row sizing via grid — auto rows keep things compact */
+
+/* Floating hover preview — hidden on home now, kept for future */
+.home-hover-preview {
+  display: none;
+}
+
+/* ============================================================
+   6. PROJECTS PAGE — GRID
+   ============================================================ */
+.projects-page {
+  padding: var(--space-3xl) var(--space-xl) var(--space-5xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.projects-page-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3xl);
+  color: var(--color-text);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.project-card {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+  opacity: 1;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.project-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-card-image {
+  transform: scale(1.03);
+}
+
+.project-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-xl) var(--space-lg);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.project-card:hover .project-card-overlay {
+  opacity: 1;
+}
+
+.project-card-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: var(--space-xs);
+}
+
+.project-card-category {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Fade-in stagger for cards */
+.project-card {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.project-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow var(--transition-base);
+}
+
+/* ============================================================
+   7. PROJECT DETAIL PAGE
+   ============================================================ */
+.project-detail {
+  padding: var(--space-2xl) var(--space-xl) var(--space-5xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.project-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-small);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2xl);
+  transition: color var(--transition-fast);
+}
+
+.project-back:hover {
+  opacity: 1;
+  color: var(--color-text);
+}
+
+.project-back svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-fast);
+}
+
+.project-back:hover svg {
+  transform: translateX(-3px);
+}
+
+.vimeo-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--space-2xl);
+}
+
+.vimeo-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.project-detail-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.project-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.project-meta-label {
+  font-size: var(--fs-small);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.project-meta-value {
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.project-detail-description {
+  font-size: var(--fs-body);
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  max-width: 720px;
+}
+
+/* ============================================================
+   8. ABOUT PAGE
+   ============================================================ */
+.about-page {
+  padding: var(--space-3xl) var(--space-xl) var(--space-5xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.about-page-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3xl);
+  color: var(--color-text);
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: start;
+}
+
+.about-text p {
+  font-size: var(--fs-body);
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.about-contact {
+  padding-top: var(--space-xl);
+}
+
+.about-contact-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.about-contact-item {
+  display: block;
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+  transition: color var(--transition-fast);
+}
+
+.about-contact-item:hover {
+  opacity: 1;
+  color: var(--color-text-secondary);
+}
+
+.about-social-links {
+  display: flex;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.about-social-link {
+  font-size: var(--fs-small);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.about-social-link:hover {
+  opacity: 1;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   9. FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--color-bg);
+  padding: var(--space-4xl) var(--space-xl) var(--space-2xl);
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-xl);
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: 400px;
+}
+
+.footer-brand {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.footer-copyright {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.footer-social a {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  color: var(--color-text);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.footer-social a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-text);
+  transition: width var(--transition-fast);
+}
+
+.footer-social a:hover::after {
+  width: 100%;
+}
+
+/* ============================================================
+   10. PAGE TRANSITIONS
+   ============================================================ */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--transition-page), transform var(--transition-page);
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ============================================================
+   11. RESPONSIVE DESIGN
+   ============================================================ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .header-inner {
+    padding: 0 var(--space-lg);
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-mobile {
+    display: flex;
+  }
+
+  /* Bento grid: collapse to simpler 2-col */
+  .home-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Bento grid: collapse to simpler 2-col */
+  .home-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 180px;
+  }
+
+  .home-card:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .home-card:nth-child(2),
+  .home-card:nth-child(3),
+  .home-card:nth-child(4),
+  .home-card:nth-child(5),
+  .home-card:nth-child(7),
+  .home-card:nth-child(8),
+  .home-card:nth-child(n+9) {
+    grid-column: span 1;
+  }
+
+  .home-card:nth-child(6) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .projects-page,
+  .project-detail,
+  .about-page {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  :root {
+    --header-height: 60px;
+  }
+
+  .header-inner {
+    padding: 0 var(--space-md);
+  }
+
+  /* Bento grid: single column on mobile */
+  .home-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 200px;
+    padding: var(--space-sm);
+    gap: var(--space-xs);
+  }
+
+  .home-card:nth-child(n) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .projects-page,
+  .project-detail,
+  .about-page {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .project-detail-meta {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .footer-inner {
+    padding: 0;
+  }
+
+  .footer-social {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   12. UTILITY & ANIMATION CLASSES
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Smooth scroll anchor offset */
+[id] {
+  scroll-margin-top: var(--header-height);
+}
+
+/* Loading state for Vimeo embeds */
+.vimeo-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  font-size: var(--fs-small);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.vimeo-loading::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Selection color */
+::selection {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
