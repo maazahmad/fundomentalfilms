@@ -702,6 +702,148 @@ button {
 }
 
 /* ============================================================
+   8b. CONTACT PAGE
+   ============================================================ */
+.contact-page {
+  padding: var(--space-3xl) var(--space-xl) var(--space-5xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contact-page-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3xl);
+  color: var(--color-text);
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4xl);
+  align-items: start;
+}
+
+.contact-intro p {
+  font-size: var(--fs-body);
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-lg);
+  max-width: 34ch;
+}
+
+.contact-direct {
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 2px;
+  transition: opacity var(--transition-fast);
+}
+
+/* ---- Form ---- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.form-label {
+  font-size: var(--fs-small);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.form-input {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-sm) 0;
+  transition: border-color var(--transition-fast);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-input:focus {
+  outline: none;
+  border-bottom-color: var(--color-text);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+/* Honeypot — visually hidden, off-screen, not display:none (bots skip those) */
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-top: var(--space-sm);
+}
+
+.form-submit {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background: var(--color-text);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 2px;
+  transition: opacity var(--transition-fast);
+}
+
+.form-submit:hover {
+  opacity: 0.8;
+}
+
+.form-submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.form-status {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+.form-status.success {
+  color: #1a7f37;
+}
+
+.form-status.error {
+  color: #c0362c;
+}
+
+/* ============================================================
    9. FOOTER
    ============================================================ */
 .site-footer {
@@ -854,7 +996,8 @@ button {
     gap: var(--space-lg);
   }
 
-  .about-content {
+  .about-content,
+  .contact-content {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
   }
@@ -867,7 +1010,8 @@ button {
 
   .projects-page,
   .project-detail,
-  .about-page {
+  .about-page,
+  .contact-page {
     padding-left: var(--space-lg);
     padding-right: var(--space-lg);
   }
@@ -898,7 +1042,8 @@ button {
 
   .projects-page,
   .project-detail,
-  .about-page {
+  .about-page,
+  .contact-page {
     padding-left: var(--space-md);
     padding-right: var(--space-md);
   }

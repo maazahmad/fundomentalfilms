@@ -80,6 +80,8 @@
       html = renderProjectDetail(slug);
     } else if (route === '#/about') {
       html = renderAbout();
+    } else if (route === '#/contact') {
+      html = renderContact();
     } else {
       html = render404();
     }
@@ -101,6 +103,8 @@
       initHomeHoverPreview();
     } else if (route === '#/projects') {
       initProjectCardAnimations();
+    } else if (route === '#/contact') {
+      initContactForm();
     }
 
     // Bind project card clicks
@@ -263,6 +267,45 @@
     `;
   }
 
+  function renderContact() {
+    return `
+      <div class="page">
+        <section class="contact-page">
+          <h1 class="contact-page-title">Contact</h1>
+          <div class="contact-content">
+            <div class="contact-intro">
+              <p>For enquiries, collaborations, or bookings, send a message below and we'll get back to you.</p>
+              ${siteConfig.email ? `<a href="mailto:${siteConfig.email}" class="contact-direct">${siteConfig.email}</a>` : ''}
+            </div>
+
+            <form class="contact-form" id="contact-form" novalidate>
+              <div class="form-row">
+                <label class="form-label" for="cf-name">Name</label>
+                <input class="form-input" type="text" id="cf-name" name="name" required autocomplete="name" />
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="cf-email">Email</label>
+                <input class="form-input" type="email" id="cf-email" name="email" required autocomplete="email" />
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="cf-message">Message</label>
+                <textarea class="form-input form-textarea" id="cf-message" name="message" rows="6" required></textarea>
+              </div>
+
+              <!-- Honeypot: hidden from humans, catches bots -->
+              <input type="text" name="company" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <div class="form-footer">
+                <button type="submit" class="form-submit" id="cf-submit">Send Message</button>
+                <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    `;
+  }
+
   function render404() {
     return `
       <div class="page">
@@ -286,6 +329,8 @@
       activeSection = '/projects';
     } else if (route === '#/about') {
       activeSection = '/about';
+    } else if (route === '#/contact') {
+      activeSection = '/contact';
     }
 
     // Update desktop nav
@@ -419,6 +464,56 @@
         mouseX = e.clientX;
         mouseY = e.clientY;
       });
+    });
+  }
+
+  // ---- Contact Form ----
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const submitBtn = document.getElementById('cf-submit');
+    const status = document.getElementById('cf-status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      status.textContent = '';
+      status.className = 'form-status';
+
+      if (!form.checkValidity()) {
+        status.textContent = 'Please fill in all fields correctly.';
+        status.classList.add('error');
+        return;
+      }
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('sendmail.php', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' },
+        });
+        const data = await res.json().catch(() => ({ ok: false }));
+
+        if (res.ok && data.ok) {
+          form.reset();
+          status.textContent = 'Thank you — your message has been sent.';
+          status.classList.add('success');
+        } else {
+          status.textContent = data.error || 'Something went wrong. Please try again.';
+          status.classList.add('error');
+        }
+      } catch (err) {
+        status.textContent = 'Network error. Please try again, or email us directly.';
+        status.classList.add('error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
     });
   }
 
