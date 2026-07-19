@@ -2,23 +2,23 @@
  * ============================================================
  * FUNDOMENTALFILMS — Project Data Store
  * ============================================================
- * 
+ *
  * TO ADD A NEW PROJECT:
  * Simply add a new object to the `projects` array below.
- * 
+ *
  * Each project object has:
  *   - title       (string)  : Display name of the project
  *   - slug        (string)  : URL-friendly identifier (lowercase, hyphens)
  *   - vimeoId     (string)  : Vimeo video ID (the number from vimeo.com/XXXXXXX)
  *   - description (string)  : Short description shown on the project detail page
- *   - category    (string)  : One of: "showreel", "commercial", "narrative", 
+ *   - category    (string)  : One of: "showreel", "commercial", "narrative",
  *                             "documentary", "music-video", "fashion", "short-film"
  *   - thumbnail   (string)  : Path to thumbnail image (relative to root)
  *   - year        (string)  : Year the project was made (optional)
  *   - client      (string)  : Client name (optional)
  *   - role        (string)  : Your role on the project (optional)
- * 
- * The FIRST project in the array with category "showreel" will be 
+ *
+ * The FIRST project in the array with category "showreel" will be
  * used as the featured showreel on the home page.
  * ============================================================
  */
@@ -122,28 +122,7 @@ const projects = [
     title: "A Promise to Chishtiyan",
     slug: "almustafatrust",
     vimeoId: "1171377261",
-    description: "The fundraiser film ‘A Promise to Chishtiyan’ ,we produced for @almustafatrust.official Chishtiyan Center.",
-    category: "documentary",
-    thumbnail: "assets/images/almustafa.jpg",
-    year: "2025",
-    client: "Al-Mustafa Trust",
-    role: "Director - DP - PostProduction",
-  },
-  {
-    title: "Tu Mil Jaye Tou | Ahmad Taha Ghani",
-    slug: "tmjt",
-    vimeoId: "659107341",
-    description: "Tu Mil Jaye Tou | Full Song | Ahmad Taha Ghani",
-    category: "music-video",
-    thumbnail: "assets/images/tmjt.jpg",
-    year: "2021",
-    role: "Director - PostProduction",
-  },
-  {
-    title: "A Promise to Chishtiyan",
-    slug: "almustafatrust",
-    vimeoId: "1171377261",
-    description: "The fundraiser film ‘A Promise to Chishtiyan’ ,we produced for @almustafatrust.official Chishtiyan Center.",
+    description: "The fundraiser film ‘A Promise to Chishtiyan’ ,we produced for @almustafatrust.official Chishtiyan Center.",
     category: "documentary",
     thumbnail: "assets/images/almustafa.jpg",
     year: "2025",

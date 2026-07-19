@@ -113,8 +113,11 @@
 
   // ---- Page Renderers ----
 
+  // Home page shows a capped highlight grid; the Projects page shows all.
+  const HOME_PROJECT_LIMIT = 8;
+
   function renderHome() {
-    const cards = projects.map(p => `
+    const cards = projects.slice(0, HOME_PROJECT_LIMIT).map(p => `
       <a href="#/project/${p.slug}" class="home-card" data-project-link>
         <img src="${p.thumbnail}" alt="${p.title}" loading="lazy" />
         <div class="home-card-title">
